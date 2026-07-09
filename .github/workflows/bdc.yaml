@@ -99,6 +99,19 @@ jobs:
             sleep $((attempt * 5))
           done
 
+      - name: Print toolchain versions
+        run: |
+          which clang-cl || true
+          clang-cl --version
+          which lld-link || true
+          lld-link --version
+          which llvm-rc || true
+          llvm-rc --version
+          which nasm || true
+          nasm -v
+          rustc +"$RUSTUP_TOOLCHAIN" -vV
+          bun --version
+
       - name: Prefetch libarchive sources
         run: |
           bun scripts/build.ts --profile=release ${{ matrix.build_args }} --configure-only
