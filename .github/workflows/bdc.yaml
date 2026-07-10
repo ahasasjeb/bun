@@ -100,17 +100,18 @@ jobs:
           done
 
       - name: Print toolchain versions
+        continue-on-error: true
         run: |
           which clang-cl || true
-          clang-cl --version
+          clang-cl --version || true
           which lld-link || true
-          lld-link --version
+          lld-link --version || true
           which llvm-rc || true
-          llvm-rc --version
+          llvm-rc --version || true
           which nasm || true
-          nasm -v
-          rustc +"$RUSTUP_TOOLCHAIN" -vV
-          bun --version
+          nasm -v || true
+          rustc +"$RUSTUP_TOOLCHAIN" -vV || true
+          bun --version || true
 
       - name: Prefetch libarchive sources
         run: |
